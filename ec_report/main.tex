@@ -1,0 +1,156 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+                                                          % paper
+
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+ 
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=ynt
+]{biblatex}
+ 
+\addbibresource{mybibliography.bib}
+ 
+
+
+
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\huge \textbf{Cloud Service Benchmarking} 
+\hfill \ \\
+\LARGE{AWS DynamoDB vs. Google Spanner}
+}
+ 
+%\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
+%         \thanks{*Use the $\backslash$thanks command to put information here}\\
+%         Faculty of Electrical Engineering, Mathematics and Computer Science\\
+%         University of Twente\\
+%         7500 AE Enschede, The Netherlands\\
+%         {\tt\small h.kwakernaak@autsubmit.com}}
+%         \hspace*{ 0.5 in}
+%         \parbox{3 in}{ \centering Pradeep Misra**
+%         \thanks{**The footnote marks may be inserted manually}\\
+%        Department of Electrical Engineering \\
+%         Wright State University\\
+%         Dayton, OH 45435, USA\\
+%         {\tt\small pmisra@cs.wright.edu}}
+%}
+
+\author{Denis Rangelov and Martin Dichev
+\\
+Group H}
+
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+The purpose of this report is to summarize and evaluate the measurements collected during the performance evaluation process of two Cloud-based services - DynamoDB \cite{DynamoWebPage} and Google Spanner \cite{SpannerWebPage}. It reveals the benchmarking setup used throughout the project as well as the reasoning behind the selected benchmarking approach. Apart from the current passage, the report comprises of 5 more sections. The first one is \textit{"Systems Under Test"} and illustrates the features that AWS DynamoDB and Google Spanner offer. In the \textit{"Benchmark Design"} section, the main focus is placed on the design objectives, the selected metrics, the workload and the benchmarking setup. The sections that follow present the results collected when measuring the performance of the benchamarking targets (i.e. AWS DynamoDB and Google Spanner) as well as our interpretation of these results. The report concludes with a brief overview of the encountered challenges during the project and also includes an assessment of the degree to which we managed to accomplish the envisioned project goals.
+
+
+
+
+
+\section{SYSTEMS UNDER TEST}
+\begin{center}
+    \textit{"If you know the enemy and know yourself, you need not fear the result of a hundred battles" \\ 
+    - Sun Tzu, The Art of War   }
+\end{center}
+
+Although the quote above is primarily intended as a playful and humorous way to open up the current section, there is a deeper meaning behind it. For the purposes of this writing, the idea of knowing your enemy can be translated as knowing well the systems one is trying to test. More specifically, when benchmarking a service is the main goal of a project, knowing the systems as close as possible is of crucial importance. Therefore, the current section is dedicated to summarizing some of the most well-known properties of DynamoDB and Google Spanner. Important to note here is that many of the properties of cloud services such as DynamoDB or Google Spanner remain "secret" for the general public. Therefore, despite our best efforts, it is possible that we might not be able to cover in much detail and with a complete accuracy how these systems operate behind the scenes. The information presented below was gathered by examining the reports from companies that actively use the services in question and also by reviewing the conference talks and papers the two service providers have published online.
+
+\section{BENCHMARK DESIGN}
+The main objective of this section is to briefly describe how we address the general benchmark design objectives, what performance metrics we decided to focus on and also what type of workloads we choose to utilize. Some of the answers to these questions are revealed implicitly by the benchmarking tool used in the scope of this project and namely - Yahoo! Cloud
+Serving Benchmark (YCSB) \cite{Cooper:2010:BCS:1807128.1807152}. \par One challenging aspect of using a pre-defined benchmarking tool is that it allows us to only evaluate if the tool fulfills the benchmarking design objectives, but if it doesn't, we cannot change its internals to fix the issue we are facing. Therefore, in the subsections that follow we will address some of the limitations when using YCSB (or any out-of-the-box benchmarking tool for that matter) compared to a custom-made benchmarking solution (e.g. developing a dedicated, self-made tool that fits the desired benchmarking scenario).  \\\\
+Important to clarify here is that the discussion presented below follows the guidelines for benchmark- requirements, metrics and workload introduced in the Enterprise Computing lecture and the ones examined in the Cloud Service Benchmarking book \cite{StefanTaiBook} written by Professor Tai, David Bermbach and Erik Wittern.
+
+\subsection{Benchmark Design Objective Assessment}
+According to S. Tai, D. Bermach and E. Wittern, there are five general benchmark design objectives - relevance, reproducibility, fairness, portability and understandability. Each one is individually analyzed below:
+\\
+\\
+\underline{Relevance:}
+\subsection{Maintaining the Integrity of the Specifications}
+ 
+
+
+
+ 
+
+\subsection{Abbreviations and Acronyms}   
+
+\subsection{Units}
+
+\begin{itemize}
+
+\item Use
+\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to  
+\end{itemize}
+
+
+\subsection{Equations}
+
+
+$$
+\alpha + \beta = \chi \eqno{(1)}
+$$
+
+ 
+
+\subsection{Some Common Mistakes}
+ 
+
+
+\section{USING THE TEMPLATE}
+ 
+
+\subsection{Headings, etc}
+
+ 
+
+\subsection{Figures and Tables}
+
+ 
+ 
+\section{CONCLUSIONS}
+
+
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+ 
+\section*{APPENDIX}
+
+\section*{ACKNOWLEDGMENT}
+
+\printbibliography
+
+ 
+
+
+
+
+\end{document}

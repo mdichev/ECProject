@@ -1,0 +1,26 @@
+[OVERALL], RunTime(ms), 1330387
+[OVERALL], Throughput(ops/sec), 7516.609828568679
+[TOTAL_GCS_G1_Young_Generation], Count, 488
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 17237
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 1.2956380361503834
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 488
+[TOTAL_GC_TIME], Time(ms), 17237
+[TOTAL_GC_TIME_%], Time(%), 1.2956380361503834
+[CLEANUP], Operations, 10
+[CLEANUP], AverageLatency(us), 6.2
+[CLEANUP], MinLatency(us), 2
+[CLEANUP], MaxLatency(us), 15
+[CLEANUP], 95thPercentileLatency(us), 15
+[CLEANUP], 99thPercentileLatency(us), 15
+[INSERT], Operations, 10000000
+[INSERT], AverageLatency(us), 1247.0779565
+[INSERT], MinLatency(us), 3
+[INSERT], MaxLatency(us), 10854399
+[INSERT], 95thPercentileLatency(us), 24
+[INSERT], 99thPercentileLatency(us), 39
+[INSERT], Return=OK, 10000
+[INSERT], Return=BATCHED_OK, 9990000
+

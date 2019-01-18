@@ -1,0 +1,27 @@
+1. Setup YCSB
+	curl -O --location https://github.com/brianfrankcooper/YCSB/releases/download/0.15.0/ycsb-0.15.0.tar.gz
+	tar xfvz ycsb-0.15.0.tar.gz
+	cd ycsb-0.15.0
+
+2. Setup Spanner
+3. Setup YCSB Spanner properties
+4. Run the YCSB Spanner shell:
+	./ycsb-0.15.0/bin/ycsb shell cloudspanner -P cloudspanner/conf/cloudspanner.properties
+
+5. 
+
+
+Setup DynamoDB:
+	1. Create table with name: usertable
+	
+
+LOAD DATA DYNAMO:
+	1.) ycsb-0.15.0/bin/ycsb load dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties
+
+
+RUN BM:
+	1.) ycsb-0.15.0/bin/ycsb run dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties
+
+AWS DYNAMO TABLE DESCRIPTION:
+	aws dynamodb describe-table --table-name usertable
+
