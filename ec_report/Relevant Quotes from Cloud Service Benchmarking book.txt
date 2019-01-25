@@ -1,0 +1,103 @@
+# Why geo-distribution should be taken into account 
+
+- Since modern application deployments are typically geo-distributed, benchmark design should consider the distribution of both measurement clients and subunits of the SUT to be an integral part of the application scenario deﬁnition.
+
+# Bad practice -> argumentation for choosing histogram as a meaningful, understandable measurement type and not sticking with YCSB's default aggregated representation of results
+
+- Benchmarks should also never only record aggregate values.
+
+# Some argumentation for using YCSB -> a durable tool due its flexible configuration (many parameters, tuning knobs)
+
+- Today, applications are undergoing fundamental changes at an unprecedented speed. This means that existing benchmarks will quickly become obsolete. One way to address this challenge is to provide conﬁguration parameters and tuning knobs that allow to alter benchmarks over time as well as to perform goal-oriented experimentation through micro-benchmarks (e.g. in YCSB).
+
+# Can be mentioned in the comparison (or Future Work/Conclusion section etc.) between benchmarking in the ideal world and our small scale project assignment
+
+- Since cloud services often do not only adapt provisioned resource amounts over time, but are even expected to do so, benchmarks should always be long-running experiments and should be repeated at different times of day and different days during the week to detect (a) stabilized behavior in longrunning applications, (b) short term effects and their durations, and (c) seasonal patterns. 
+
+- Always consider all design objectives, never ignore any of them. Then, make a conscious decision to trade less important aspects for more important design goals.
+
+# Could be helpful when discussing our choice to use YCSB tool. Trade-off relevance - portability, understandability 
+
+- Benchmarking Performance Impacts of Security Settings: When we benchmarked the performance impacts of enabling data-in-transit encryption for NoSQL stores, we aimed to better understand when and how encryption, e.g., through TLS, affected the throughput that the SUT could handle. Since we were not interested in a particular application workload but rather only needed to fully load the system both with and without security settings enabled, we opted for YCSB-based workloads to stress the target system. This way, we traded “relevance” aspects that were less important to our initial question (realistic application workload) for “portability” (benchmarking system support for a variety of storage services) and “understandability” aspects (very simple workload).
+
+# More info on neglecting relevance aspects
+
+- Normally, “relevance” demands that the benchmark should be designed in a way to closely resemble a realistic application. However, in this case, we were not interested in the behavior that a speciﬁc application might observe. Instead, we wanted to measure the behavior that the (from the perspective of the data store) theoretically worst possible application would experience. 
+
+# What is a Quality Metric?
+
+- Kaner and Bond [37] deﬁne, based on the IEEE Standard 1061 [34], an attribute as “a measurable property [...] of an entity”, i.e., a dimension of a quality, while a metric is “the function that assigns a value to the attribute”.  
+
+# Correlation, Tracking, Monotonicity, Discriminative Power, Reliability -  all these are according to the book necessary requirements for Quality Metrics. The metrics we use in this work for measuring latency cover all these requirements.   
+
+# Definition of Performance
+
+- Performance has two dimensions: the number of requests that can be handled in parallel and the latency of individual requests.
+This intuitively leads to two core metrics for performance, namely, throughput and latency.
+
+# Definition of Throughput
+
+- Throughput describes the amount of requests that a cloud service can handle in parallel. As this includes both a number and some notion of time, the typical representation of throughput uses the unit requests per second. This means that within a given time interval, the number of requests that was successfully completed is counted. 
+
+# Just an average throughput isn't a meaningful enough metric -> much information is omitted
+
+- Sometimes,benchmarks simply report the average throughput, however, since this ignores all variance during the benchmark run, this is not desirable and may, in fact, hide obscure quality behavior. 
+A better way is to use a moving average where a small interval length (e.g., one second) continuously moves over time, i.e., the resulting metric reports for any given time the number of requests that was served within the last second (or the respectively different interval length). 
+
+# Definition of Latency
+
+- Latency describes the time necessary to complete an individual request. As such, time (typically in milliseconds) is the obvious metric unit. 
+
+# Important remarks about metrics and their representation. We can basically plot a discrete curve with YCSB's histogram measurementtype option. Another option would be to plot the aggregated Min, Max, Average values from multiple HDRHistogram measurements different benchmark execution cycles over time (sliding-window method)
+
+- Raw latency values will rarely be reported, because they can be rather volatile but also since requests may run concurrently so that a clear order of latency values over time is no longer guaranteed. Furthermore, in case of performance problems, latency may
+suddenly increase, thus, leading to a time series of latency values that is no longer continuous. For this reason, latency – just like throughput – is often reported as a single average value. However, a single average value dismisses so much information
+that the entire benchmark results become virtually useless. A slightly better alternative is (if that much aggregation is needed) to report median, maximum, minimum and percentile values. However, these values still dismiss any notion of time or any changes over the course of the experiment. Especially for benchmarks that use workloads which vary in their intensity over time, this approach is problematic because it hides how a given service adapts to changes in stress. Typically,we want a time series of values that can be plotted as a discrete curve. For this, a sliding window-based aggregation method is a better ﬁt, especially, if it is based on the (most relevant) maximum latency values.  Different window lengths should be evaluated so as to avoid losing
+information on repetitive behavior.
+
+#Latency Measurement Methods
+In the case of performance, the measurement methods are relatively straightforward: simply increase the current system load through additional requests and count how many the SUT can handle while not violating maximum latency levels as speciﬁed by an SLA. Or, for a given target throughput, simply take a timestamp before and after sending a request and, thus, track latency. For other qualities, the measurement methods are less intuitive.
+
+
+# Workload
+- Three basic workload generation strategies - open, closed, partly-open.
+- Two basic types of workloads - synthetic and trace-based.
+- Synthetic workloads artiﬁcially generate requests based on speciﬁed probability distributions that are used with random sampling. 
+- Trace-based workloads read at runtime a sequence of instructions that speciﬁes in detail which request is supposed to be sent at which time. A trace would already contain an entry that speciﬁes to send a message with a particular content.
+
+# YCSB provides us with synthetic workload and we do not execute long-running benchmarks, which could result in very different results of our short-running benchmarks. -> Despite what theory says, our not so long-running synthethically loaded experiments deliver similar results and therefore experiments look highly repeatable despite the non-repeatable workload. In other words the random sampling does not seem to significantly affect latency in our case.
+
+- While synthetic workloads always have the element of surprise, i.e., the benchmark target cannot really optimize for a speciﬁc benchmark workload, they are also not necessarily repeatable, which, however, is a core design goal of benchmarking. This effect is at its strongest for short-running benchmarks: the larger the number of samples drawn from a particular distribution, the closer it is to the actual distribution. Thus, the results of two benchmarking runs will have only few and minor differences for very
+long-running workloads, whereas they may look completely different in the case of short-running workloads. 
+
+# Synthetic Workload in the YCSB context -> dubious -> in the ideal world case section we can mention that a trace-based workload would make our experiment more realistic
+- When researchers and developers use YCSB with such a modiﬁed workload model, they typically still claim to have used a workload from a representative application use case. However, the similarity to an actual application workload is highly dubious as a number of changes have been made in comparison to the original application trace: First, the original modeling and abstraction may be off.
+Second, the ﬁt to a probability distribution may be wrong or imprecise. Third, the modiﬁcations to the conﬁguration ﬁle may have signiﬁcantly changed the workload. ...one should never just assume that synthetic workloads even come close to producing a realistic application workload. 
+
+# Workload Generation - should be discussed as mentioned in the assignment slides -> YCSB uses a closed model (not very realistic).
+
+- Three different models for describing job arrivals in system: open, closed and partly-open.
+- The easiest model to implement is closed which means that new requests will only arrive when all current ones have been processed. This is trivial to implement as it simply requires a ﬁxed number of threads that trigger requests with an optional
+“think time” in between. However, while this model is very common in benchmark tools, e.g., [8, 10, 19, 58] as it is so convenient to implement, this model is also not very realistic. Essentially, a closed workload model assumes a ﬁxed number of users that constantly interact with the SUT.
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ __ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ 
+
+#Source: https://www.computer.org/csdl/proceedings/ic2e/2017/5817/00/07923801.pdf
+
+- YCSB issues events at constant rate (full speed); realistic interarrivals are necessary when burstiness affects performance; 
+- Full speed: Events are issued one after the other, but only after the prior operation has finished as the operations
+  are invoked using blocking calls; this is the same approach used by YCSB. Only applicable to the closed model.
+- YCSB has one workload that does not use the IRM, called Zipfian Latest.
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ __ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ 
+#Distribution
+
+
+# Reproducibility and Readability. How reproducibility in the cloud service benchmarking case should be achieved in the ideal world -> Due resource scarceness and the smaller scale of our project it is clear that our experiments are not long-running enough to gather results that represent the specific properties and challenges of a SUT in a cloud environment.    
+
+- Reproducibility is one of the cross-cutting benchmarking objectives that play a major role both in design but also in implementation phases. Essentially, Reproducibility implies that repeated executions of identical benchmark workloads yield ideally
+identical, in practice comparable, results. Especially when using cloud services as SUT or execution environment, this is challenging since all deployed components are under a certain degree of inﬂuence of the service provider. For instance, when
+running a benchmark against Amazon SQS, SQS itself is completely controlled by AWS with no inﬂuence at all of the cloud user. Additionally, the benchmark implementation is likely to be deployed on Amazon EC2 instances, i.e., the measurement system itself can also be affected by actions of the cloud provider. This shall illustrate how important it is to have long-running experiments that are repeated several times and that still may not always feature reproducibility – a major difference to traditional benchmarking. 
+# Thumb Rule
+1.Prefer deterministic over non-deterministic benchmark implementations.
+2.Prefer long-running experiments over short tests. Repeat experiments several times – the shorter the experiment the more often it needs to be repeated.
+3.For each benchmark run, write all conﬁguration parameters and the experiment start date into all output ﬁles. This way there is a lower risk of mixing up results from different benchmark runs.
