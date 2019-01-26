@@ -19,8 +19,25 @@
 	ycsb-0.15.0/bin/ycsb run dynamodb -P dynamodb/conf/dynamodb.properties -P workloads/workloada -p recordcount=15000 -p operationcount=15000 -s -p measurementtype=histogram
 
 
-# DYNAMO 15k ops with histogram every 10 seconds measurements
-	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/somename_new.csv -p recordcount=15000 -p operationcount=15000 -p timeseries.granularity=10000 -s
+# DYNAMO + Spanner RUN 30k ops with histogram every 10 seconds measurements Workload A
+	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/dynamo_workloadA-80-20_30kOps.csv -p recordcount=30000 -p operationcount=30000 -p timeseries.granularity=10000 -s
 
-	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p measurementtype=timeseries -p exportfile=~/somename_spanner.csv -p recordcount=15000 -p operationcount=15000 -p timeseries.granularity=10000 -s
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p measurementtype=timeseries -p exportfile=~/spanner_workloadA-80-20_30kOps.csv -p recordcount=30000 -p operationcount=30000 -p timeseries.granularity=10000 -s
 
+# DYNAMO + Spanner load 30k records & ops with histogram every 10 seconds measurements Workload A
+
+ 	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p recordcount=30000 -p cloudspanner.batchinserts=1000 -s
+
+	ycsb-0.15.0/bin/ycsb load  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p recordcount=30000 -s
+
+
+# DYNAMO + Spanner RUN 30k ops with histogram every 10 seconds measurements Workload D
+	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloadd -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/dynamo_workloadD_30kOps.csv -p recordcount=30000 -p operationcount=30000 -p timeseries.granularity=10000 -s
+
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloadd -p measurementtype=timeseries -p exportfile=~/spanner_workloadD_30kOps.csv -p recordcount=30000 -p operationcount=30000 -p timeseries.granularity=10000 -s
+
+# DYNAMO + Spanner load 30k records & ops with histogram every 10 seconds measurements Workload D
+
+ 	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloadd -p recordcount=30000 -p cloudspanner.batchinserts=1000 -s
+
+	ycsb-0.15.0/bin/ycsb load  dynamodb -P workloads/workloadd -P dynamodb/conf/dynamodb.properties -p recordcount=30000 -s
