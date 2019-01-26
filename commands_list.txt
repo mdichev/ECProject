@@ -1,0 +1,26 @@
+# Load generic load with 1000 records DYNAMO:
+
+	ycsb-0.15.0/bin/ycsb load dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties
+
+# Run generic load with 1000 records DYNAMO:
+	ycsb-0.15.0/bin/ycsb run dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties
+
+# Super large load SPANNER:
+	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloade -p recordcount=500000 -p cloudspanner.batchinserts=1000 -threads 10 -s
+
+
+# Run 50 000 ops on Dynamo
+	ycsb-0.15.0/bin/ycsb run dynamodb -P workloads/workloade -P dynamodb/conf/dynamodb.properties -p recordcount=500000 -s -p operationcount=50000 
+
+
+# SPANNER 15k ops
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p recordcount=15000 -p operationcount=15000 -s -p exportfile=/home/dra/Desktop/ECProject/Results/spanner/15kRecords_15kOps.txt -p measurementtype=histogram
+
+	ycsb-0.15.0/bin/ycsb run dynamodb -P dynamodb/conf/dynamodb.properties -P workloads/workloada -p recordcount=15000 -p operationcount=15000 -s -p measurementtype=histogram
+
+
+# DYNAMO 15k ops with histogram every 10 seconds measurements
+	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/somename_new.csv -p recordcount=15000 -p operationcount=15000 -p timeseries.granularity=10000 -s
+
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p measurementtype=timeseries -p exportfile=~/somename_spanner.csv -p recordcount=15000 -p operationcount=15000 -p timeseries.granularity=10000 -s
+
