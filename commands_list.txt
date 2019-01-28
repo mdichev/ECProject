@@ -57,3 +57,42 @@
  	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloade -p recordcount=30000 -p cloudspanner.batchinserts=1000 -s
 
 	ycsb-0.15.0/bin/ycsb load  dynamodb -P workloads/workloade -P dynamodb/conf/dynamodb.properties -p recordcount=30000 -s
+
+==========================================================================
+
+# DYNAMO + Spanner WORKLOAD A WITH 300BYTES RECORD FIELD
+	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/dynamo_woorkloadA_300size.csv -p recordcount=5000 -p operationcount=30000 -p timeseries.granularity=10000 -p fieldlength=300 -s
+
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p measurementtype=timeseries -p exportfile=~/spanner_workloadA_300size.csv -p recordcount=5000 -p operationcount=30000 -p timeseries.granularity=10000 -p fieldlength=300 -s
+
+# DYNAMO + Spanner WORKLOAD A WITH 300BYTES RECORD FIELD
+
+ 	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p recordcount=5000 -p cloudspanner.batchinserts=1000 -p fieldlength=300 -s
+
+	ycsb-0.15.0/bin/ycsb load  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p recordcount=5000 -p fieldlength=300 -s
+
+==========================================================================
+
+# DYNAMO + Spanner WORKLOAD A WITH 500BYTES RECORD FIELD
+	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/dynamo_workloadA_500size.csv -p recordcount=5000 -p operationcount=30000 -p timeseries.granularity=10000 -p fieldlength=500 -s
+
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p measurementtype=timeseries -p exportfile=~/spanner_workloadA_500size.csv -p recordcount=5000 -p operationcount=30000 -p timeseries.granularity=10000 -p fieldlength=500 -s
+
+# DYNAMO + Spanner WORKLOAD A WITH 500BYTES RECORD FIELD
+
+ 	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p recordcount=5000 -p cloudspanner.batchinserts=1000 -p fieldlength=500 -s
+
+	ycsb-0.15.0/bin/ycsb load  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p recordcount=5000 -p fieldlength=500 -s
+
+==========================================================================
+
+# DYNAMO + Spanner WORKLOAD A WITH 800BYTES RECORD FIELD
+	 ycsb-0.15.0/bin/ycsb run  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p measurementtype=timeseries -p exportfile=~/dynamo_workloadA_1000size.csv -p recordcount=2500 -p operationcount=30000 -p timeseries.granularity=10000 -p fieldlength=1000 -s
+
+	ycsb-0.15.0/bin/ycsb run cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p measurementtype=timeseries -p exportfile=~/spanner_workloadA_1000size.csv -p recordcount=2500 -p operationcount=30000 -p timeseries.granularity=10000 -p fieldlength=1000 -s
+
+# DYNAMO + Spanner WORKLOAD A WITH 800BYTES RECORD FIELD
+
+ 	ycsb-0.15.0/bin/ycsb load cloudspanner -P cloudspanner/conf/cloudspanner.properties -P workloads/workloada -p recordcount=2500 -p cloudspanner.batchinserts=1000 -p fieldlength=1000 -s
+
+	ycsb-0.15.0/bin/ycsb load  dynamodb -P workloads/workloada -P dynamodb/conf/dynamodb.properties -p recordcount=2500 -p fieldlength=1000 -s
