@@ -1,6 +1,6 @@
 # ECProject
 
-_ To reproduce the experiments, one should download the latest version of YCSB and extract it in the YCSB folder of the project _
+*To reproduce the experiments, one should download the latest version of YCSB and extract it in the YCSB folder of the project*
 
 ### File locations
 
