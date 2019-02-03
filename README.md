@@ -13,7 +13,7 @@ The report and the latex files are located in the "Report" folder
 #### The collected measurements presented in the poster and the report:
 The measurements are stored in *.csv files in the: 
 ````
-/Results/final_results/scaling_writes" 
+/Results/final_results/scaling_writes
 ````
 folder
 #### All not relevant test measurements:
@@ -23,7 +23,7 @@ The measurements are stored in *.csv files in the:
 ````
  and 
 ````
-/Results/final_results/second_run_all_workloads" 
+/Results/final_results/second_run_all_workloads"
 ````
 folders
 #### All Figures, Line Charts, Box Plots, Tables and Excel Spreadsheets relevant for the report:
@@ -36,5 +36,5 @@ These are stored in:
 
 These are stored in: 
 ````
-Figures Plots and Charts/Multiple times of the day Charts/first_run (or /second_run, etc.)
+/Figures Plots and Charts/Multiple times of the day Charts/first_run (or /second_run, etc.)
 ````
